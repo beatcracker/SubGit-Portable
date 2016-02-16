@@ -1,45 +1,50 @@
 @echo off
-Setlocal EnableDelayedExpansion
+setlocal
 
-rem Set full path to 7Zip.exe if it's not in %PATH%
-set zip=7z.exe
-set xtmp=tmp
-set jre_distr=JRE_Installer
-set jre_folder=JRE_Portable
-set jre_inst=installerexe
-set packfiles=*.pack
 set pwd=%~dp0
+set zip=7z.exe
+set no_zip_msg=Can't find 7z.exe! Set full path to 7z.exe in %~nx0 if it's not in %%PATH%%!
+set jre_tmp=tmp
+set jre_src=JRE_Installer
+set jre_dst=JRE_Portable
+set jre_bin=installerexe
+set jre_packfiles=*.pack
 
-for /r "%pwd%%jre_distr%\" %%a in ("jre-*.exe") do (
+where %zip% >nul 2>nul
+if %errorlevel%==1 (
+    echo %no_zip_msg%
+    goto end
+)
+
+for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
 	echo Processing Java installer: %%a
 
-	echo Removing previous version: "%pwd%%jre_folder%\%%~na"
-	rd /s /q "%pwd%%jre_folder%\%%~na%"
+	echo Removing previous version: "%pwd%%jre_dst%\%%~na"
+	rd /s /q "%pwd%%jre_dst%\%%~na%"
 
-	echo Unpacking "%%a" to "%pwd%%jre_folder%\%%~na\%xtmp%"
-	"%zip%" e "%%a" -aoa -o"%pwd%%jre_folder%\%%~na\%xtmp%"
+	echo Unpacking "%%a" to "%pwd%%jre_dst%\%%~na\%jre_tmp%"
+	"%zip%" e "%%a" -aoa -o"%pwd%%jre_dst%\%%~na\%jre_tmp%"
 
-	echo Unpacking "%pwd%%jre_folder%\%%~na\%xtmp%\%jre_inst%" to "%pwd%%jre_folder%\%%~na"
-	"%zip%" x "%pwd%%jre_folder%\%%~na\%xtmp%\%jre_inst%" -aoa -o"%pwd%%jre_folder%\%%~na"
+	echo Unpacking "%pwd%%jre_dst%\%%~na\%jre_tmp%\%jre_bin%" to "%pwd%%jre_dst%\%%~na"
+	"%zip%" x "%pwd%%jre_dst%\%%~na\%jre_tmp%\%jre_bin%" -aoa -o"%pwd%%jre_dst%\%%~na"
 
-	echo Deleting: "%pwd%%jre_folder%\%%~na\%xtmp%"
-	rd /s /q "%pwd%%jre_folder%\%%~na\%xtmp%"
+	echo Deleting: "%pwd%%jre_dst%\%%~na\%jre_tmp%"
+	rd /s /q "%pwd%%jre_dst%\%%~na\%jre_tmp%"
 
-	echo Unpacking %packfiles% files
-	pushd "%pwd%%jre_folder%\%%~na"
-	for /r %%b in (%packfiles%) do (
+	echo Unpacking %jre_packfiles% files
+	pushd "%pwd%%jre_dst%\%%~na"
+	for /r %%b in (%jre_packfiles%) do (
 
 		echo Unpacking "%%b" to "%%~db%%~pb%%~nb.jar"
-		"%pwd%%jre_folder%\%%~na\bin\unpack200" -r "%%b" "%%~db%%~pb%%~nb.jar"
+		"%pwd%%jre_dst%\%%~na\bin\unpack200" -r "%%b" "%%~db%%~pb%%~nb.jar"
 
 	)
 	popd
 
 )
 
-
-
+:end
 echo All done
-pause >nul
+pause
 
 endlocal
