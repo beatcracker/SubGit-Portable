@@ -44,7 +44,6 @@ for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
 	pushd "%pwd%%jre_dst%\%%~na"
 	for /r %%b in (%jre_packfiles%) do (
 
-		rem echo "%%b" -^> "%%~db%%~pb%%~nb.jar" %verbose%
         echo %%~nxb -^> %%~nb.jar %verbose%
 		"%pwd%%jre_dst%\%%~na\bin\unpack200" -r "%%b" "%%~db%%~pb%%~nb.jar"
 
