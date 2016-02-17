@@ -13,11 +13,11 @@ set jre_packfiles=*.pack
 where %zip% >nul 2>nul
 if %errorlevel%==1 (
     echo %no_zip_msg%
-    goto end
+    goto :end
 )
 
 for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
-	echo Processing Java installer: %%a
+	echo Processing JRE installer: %%a
 
 	echo Removing previous version: "%pwd%%jre_dst%\%%~na"
 	rd /s /q "%pwd%%jre_dst%\%%~na%"
@@ -40,6 +40,22 @@ for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
 
 	)
 	popd
+
+)
+
+for /r "%pwd%%jre_src%\" %%a in ("jre-*.tar.gz") do (
+
+    echo Processing JRE archive: %%a
+
+    for /f "tokens=6 usebackq" %%J in (`call "%zip%" x "%%a" -so 2^>nul ^| "%zip%" l -si -ttar ^| findstr /r /i "jre[^^\\]*$"`) do (
+
+    	echo Removing previous version: "%pwd%%jre_dst%\%%J"
+    	rd /s /q "%pwd%%jre_dst%\%%J"
+    
+    	echo Unpacking "%%J" to "%pwd%%jre_dst%\%%J"
+        "%zip%" x "%%a" -so 2>nul | "%zip%" x -aoa -ttar -o"%pwd%%jre_dst%" -si 1>nul
+
+    )
 
 )
 
