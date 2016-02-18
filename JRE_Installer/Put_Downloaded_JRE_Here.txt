@@ -1,1 +1,0 @@
-jre-XuXX-windows-xZZ.exe or jre-XuXX-windows-i586.tar.gz
