@@ -1,6 +1,0 @@
-bin\
-lib\
-CHANGES.txt
-KNOWN_ISSUES.txt
-LICENSE.txt
-README.txt
