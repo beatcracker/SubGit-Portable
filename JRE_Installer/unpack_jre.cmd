@@ -17,7 +17,7 @@ if %errorlevel%==1 (
     goto :end
 )
 
-for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
+for /r "%pwd%%jre_src%\" %%a in ("*jre-*-windows-*.exe") do (
 	echo Processing JRE installer: %%~nxa
 
     if exist "%pwd%%jre_dst%\%%~na\%jre_check%" (
@@ -35,7 +35,7 @@ for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
 
     if exist "%pwd%%jre_dst%\%%~na\%jre_tmp%\%jre_bin%" (
 
-    	echo Deleting: "%pwd%%jre_dst%\%%~na\%jre_tmp%"
+    	echo Removing temporary directory: "%pwd%%jre_dst%\%%~na\%jre_tmp%"
     	rd /s /q "%pwd%%jre_dst%\%%~na\%jre_tmp%"
 
     )
@@ -52,11 +52,11 @@ for /r "%pwd%%jre_src%\" %%a in ("jre-*.exe") do (
 
 )
 
-for /r "%pwd%%jre_src%\" %%a in ("jre-*.tar.gz") do (
+for /r "%pwd%%jre_src%\" %%a in ("*jre-*-windows-*.tar.gz") do (
 
     echo Processing JRE archive: %%~nxa
 
-    for /f "tokens=6 usebackq" %%J in (`call "%zip%" x "%%a" -so 2^>nul ^| "%zip%" l -ttar -si ^| findstr /r /i "jre[^^\\]*$"`) do (
+    for /f "tokens=6 usebackq" %%J in (`call "%zip%" x "%%a" -so 2^>nul ^| "%zip%" l -ttar -si ^| findstr /r /i "j[dr][ke][0-9]\.[0-9]\.[0-9]_*[0-9]*[0-9]*$"`) do (
 
         if exist "%pwd%%jre_dst%\%%J\%jre_check%" (
     
