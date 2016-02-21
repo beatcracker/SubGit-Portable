@@ -2,15 +2,14 @@
 
 Example:
 
-* `jre-XuXX-windows-x64.exe`
-* `jre-XuXX-windows-i586.exe`
-
-
-* `jre-XXuXX-windows-x64.tar.gz`
-* `jre-XuXX-windows-i586.tar.gz`
-
-
-* `server-jre-XuXX-windows-x64.tar.gz`
+* Desktop JRE executable installers
+ * `jre-XuXX-windows-x64.exe`
+ * `jre-XuXX-windows-i586.exe`
+* Desktop JRE `tar.gz` archives
+ * `jre-XXuXX-windows-x64.tar.gz`
+ * `jre-XuXX-windows-i586.tar.gz`
+* Server JRE `tar.gz` archive
+ * `server-jre-XuXX-windows-x64.tar.gz`
 
 Double-click `unpack_jre.cmd` to unpack them to the `..\JRE_Portable` folder.
 Script requires `7z.exe` to be in the `%PATH%` environment variable.
