@@ -9,7 +9,19 @@ set JAVA_HOME=%~dp0JRE_Portable\%jre_dir%
 
 if exist "%JAVA_HOME%\%jre_check%" (
 
-	%subgit% %*
+	if exist "%subgit%" (
+
+		"%subgit%" %*
+
+	) else (
+
+		echo Can't find "%subgit%"
+		echo Please unpack SubGit to the "%~dp0SubGit\" folder.
+		echo See "%~dp0SubGit\README.md" for details.
+		pause
+
+	)
+	
 
 ) else (
 
