@@ -14,8 +14,7 @@ Now you can use `subgit.cmd` as if you were using original `subgit.bat`.
 ##### Example:
  
     c:\Path\To\SubGit-Portable>subgit --version
-    SubGit version 3.0.0-EAP ('Bobique') build #3141
-    This is an EAP build, which you may not like to use in production environment.
-    (c) TMate Software 2012-2015 (http://subgit.com/)
+	SubGit version 3.1.1 ('Bobique') build #3448
+	  (c) TMate Software 2012-2016 (http://subgit.com/)
     
 [SubGit]: http://www.subgit.com
