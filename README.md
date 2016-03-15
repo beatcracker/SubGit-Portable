@@ -1,5 +1,5 @@
 ##### Directory structure and batch scripts to create portable [SubGit] install with JRE
-See this blog post for more details: https://beatcracker.wordpress.com/dummy-link
+See this blog post for more details: https://beatcracker.wordpress.com/2016/03/15/migrating-a-svn-repo-to-git-part-deux-subgit-to-the-rescue/
 
 ##### Quick how-to:
 
